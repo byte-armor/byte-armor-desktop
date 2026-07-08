@@ -7,6 +7,3 @@ Run applications inside a customized runtime environment with reduced attack sur
 Defend against Attach API abuse, JVMTI agents, debugging, instrumentation and runtime analysis.
 ### 4、Native Security
 Move critical verification logic beyond standard JVM execution for stronger protection.
-**Full Changelog**: https://github.com/byte-armor/byte-armor-desktop/compare/v1.0.0...1.0.1
-
-1. Enhanced UI interactions for a better user experience.
