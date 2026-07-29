@@ -23,17 +23,6 @@ Designed for licensing servers, financial engines, game backends, and AI inferen
 
 ---
 
-## Quick Start
 
-```bash
-# Add plugin to your build.gradle
-plugins {
-    id 'com.bytearmor.protect' version '1.0.0'
-}
-
-# Apply protection to your jar
-./gradlew bytearmor --config bytearmor.json
-```
-
-> 📘 Full documentation: [docs.bytearmor.io](https://docs.bytearmor.io)  
-> 📦 Try the sample: [examples/spring-boot-demo](examples/spring-boot-demo)
+> 📘 Full documentation: [https://bytearmor.io/en/docs](https://bytearmor.io/en/docs)  
+> 📦 Try the sample: [https://bytearmor.io/en/downloads](https://bytearmor.io/en/downloads)
