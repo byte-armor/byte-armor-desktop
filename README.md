@@ -1,14 +1,19 @@
 # ByteArmor
 
-**Multi-layer Java bytecode protection against reverse engineering, runtime instrumentation, and debugger-based attacks.**
+**Multi-layer Java bytecode protection that raises the cost of reverse engineering, runtime instrumentation, and debugger-assisted attacks — making automated tools fail and manual analysis cost-prohibitive.**
 
 ---
 
 ## What is ByteArmor?
 
-A Java application can be reverse-engineered in under a minute using common tools like `jd-gui`, `jdb`, or `ByteBuddy`. ByteArmor changes that equation — not by obscuring your code, but by making every standard attack tool fail against it.
+In 30 seconds, an attacker can:
+- Decompile your JAR with `jd-gui`
+- Attach `jdb` to your live JVM
+- Inject a `ByteBuddy` agent to intercept method calls
 
-Designed for licensing servers, financial engines, game backends, and AI inference services where IP protection is non-negotiable.
+ByteArmor doesn't promise to make this impossible. It makes each attack step **expensive** — requiring custom tooling, deep JVM internals knowledge, and hours of manual effort. For most commercial attackers, that's enough to move on to an easier target.
+
+Designed for licensing servers, financial engines, game backends, and AI model serving — where IP protection is business-critical.
 
 ---
 
@@ -16,13 +21,14 @@ Designed for licensing servers, financial engines, game backends, and AI inferen
 
 | Layer | What It Does | Why It Matters |
 | :--- | :--- | :--- |
-| **Bytecode Virtualization** | Transforms critical methods into a custom instruction set that only the ByteArmor runtime can interpret. Decompilers output meaningless control flow. | Your core algorithm cannot be reconstructed, even with full JAR access. |
-| **Runtime Detection** | Monitors for JDB debugger attachment, JVMTI agent injection, and `Attach API` calls. Blocks or degrades behavior when instrumentation is detected. | Attackers cannot dynamically inspect or modify method behavior at runtime. |
-| **Hardened JRE** | A minimal JRE distribution with unnecessary APIs, agents, and debugging endpoints removed. | Reduces attack surface — fewer entry points means fewer vulnerabilities to exploit. |
-| **Native Security (JNI/C)** | Critical verification logic (license checks, auth) executes outside the JVM in compiled native code. | Even if bytecode is memory-dumped, core validation remains opaque and untamperable. |
+| **Bytecode Virtualization** | Transforms critical methods into a custom instruction set that only the ByteArmor runtime can interpret. `jd-gui` outputs control-flow gibberish. | Automated decompilers fail instantly. Manual analysis requires reverse-engineering a custom VM first — a week-long project, not a coffee-break task. |
+| **Runtime Attack Detection** | Monitors for JDB, JVMTI agents, and Attach API usage. On detection, delays execution, returns fake data, or terminates. | Standard debugging tools become useless. Attackers must build custom debugging infrastructure — a significant time investment. |
+| **Hardened JRE** | A minimal JRE with unnecessary APIs (Attach API, JMX, scripting engines) removed at build time. | Fewer entry points = fewer known exploits to worry about. Attackers spend time discovering non-obvious surfaces instead of using well-known ones. |
+| **Native Security (JNI/C)** | License validation and integrity checks execute outside the JVM, in compiled native code. | Even if the JVM heap is dumped, the core authentication logic remains opaque. Memory-dump attacks are no longer a viable shortcut. |
+
+> ⚠️ **A note on security claims:** No protection is unbreakable. ByteArmor is designed to shift the economics of an attack — from a 5-minute script to a multi-day reverse-engineering project. For 99% of commercial threats, that's the difference between "worth it" and "not worth it."
 
 ---
-
 
 > 📘 Full documentation: [https://bytearmor.io/en/docs](https://bytearmor.io/en/docs)  
 > 📦 Try the sample: [https://bytearmor.io/en/downloads](https://bytearmor.io/en/downloads)
