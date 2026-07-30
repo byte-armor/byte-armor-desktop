@@ -1,34 +1,51 @@
 # ByteArmor
 
-**Multi-layer Java bytecode protection that raises the cost of reverse engineering, runtime instrumentation, and debugger-assisted attacks — making automated tools fail and manual analysis cost-prohibitive.**
+**Multi-layer Java bytecode protection that combines runtime hardening and native security controls to make reverse engineering and runtime attacks significantly more difficult.**
 
 ---
 
 ## What is ByteArmor?
 
-In 30 seconds, an attacker can:
-- Decompile your JAR with `jd-gui`
-- Attach `jdb` to your live JVM
-- Inject a `ByteBuddy` agent to intercept method calls
+ByteArmor is a Java application protection framework designed specifically for the JVM ecosystem. It runs applications inside a hardened runtime environment and defends against runtime analysis techniques such as Attach API abuse, JVMTI agent injection, debugging, and instrumentation.
 
-ByteArmor doesn't promise to make this impossible. It makes each attack step **expensive** — requiring custom tooling, deep JVM internals knowledge, and hours of manual effort. For most commercial attackers, that's enough to move on to an easier target.
+Instead of relying on a single defense mechanism, ByteArmor combines multiple independent security layers that work together — increasing the complexity of any attack and raising the bar beyond what most commercial threats are willing to invest.
 
-Designed for licensing servers, financial engines, game backends, and AI model serving — where IP protection is business-critical.
+Designed for Spring Boot, Tomcat, desktop applications, Java SDKs, and libraries.
 
 ---
 
 ## Protection Layers
 
-| Layer | What It Does | Why It Matters |
-| :--- | :--- | :--- |
-| **Bytecode Virtualization** | Transforms critical methods into a custom instruction set that only the ByteArmor runtime can interpret. `jd-gui` outputs control-flow gibberish. | Automated decompilers fail instantly. Manual analysis requires reverse-engineering a custom VM first — a week-long project, not a coffee-break task. |
-| **Runtime Attack Detection** | Monitors for JDB, JVMTI agents, and Attach API usage. On detection, delays execution, returns fake data, or terminates. | Standard debugging tools become useless. Attackers must build custom debugging infrastructure — a significant time investment. |
-| **Hardened JRE** | A minimal JRE with unnecessary APIs (Attach, Agent) removed at build time. | Fewer entry points = fewer known exploits to worry about. Attackers spend time discovering non-obvious surfaces instead of using well-known ones. |
-| **Native Security (JNI/C)** | License validation and integrity checks execute outside the JVM, in compiled native code. | Even if the JVM heap is dumped, the core authentication logic remains opaque. Memory-dump attacks are no longer a viable shortcut. |
-
-> ⚠️ **A note on security claims:** No protection is unbreakable. ByteArmor is designed to shift the economics of an attack — from a 5-minute script to a multi-day reverse-engineering project. For 99% of commercial threats, that's the difference between "worth it" and "not worth it."
+| Layer | Description |
+| :--- | :--- |
+| **Hardened JRE** | Runs applications inside a customized runtime environment with reduced attack surface. Unnecessary APIs (Attach API, Agent) are removed to eliminate common entry points. |
+| **Runtime Protection** | Defends against Attach API abuse, JVMTI agents, debugging, instrumentation, and runtime analysis. |
+| **Native Security** | Keeps bytecode persistently encrypted in the metaspace. Decryption occurs on-demand within the native layer during method execution, ensuring that plaintext bytecode is never fully exposed in the JVM heap. |
 
 ---
+
+## Threat Coverage
+
+| Threat | Defense Layer |
+| :--- | :--- |
+| Arthas / BTrace runtime analysis | Hardened Runtime / Runtime Protection |
+| Attach API instrumentation | Runtime Protection |
+| JVMTI agent injection | Runtime Protection |
+| Memory dump extraction | Native Security (metaspace encryption) |
+| Heap inspection | Native Security (metaspace encryption) |
+| Binary modification / tampering | Integrity Verification |
+
+---
+
+## Supported Platforms
+
+- Spring Boot
+- Apache Tomcat
+- Desktop applications (JavaFX, Swing)
+- Java SDKs and libraries
+
+---
+
 
 > 📘 Full documentation: [https://bytearmor.io/en/docs](https://bytearmor.io/en/docs)  
 > 📦 Try the sample: [https://bytearmor.io/en/downloads](https://bytearmor.io/en/downloads)
