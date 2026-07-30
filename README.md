@@ -33,7 +33,6 @@ Designed for Spring Boot, Tomcat, desktop applications, Java SDKs, and libraries
 | JVMTI agent injection | Runtime Protection |
 | Memory dump extraction | Native Security (metaspace encryption) |
 | Heap inspection | Native Security (metaspace encryption) |
-| Binary modification / tampering | Integrity Verification |
 
 ---
 
