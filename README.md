@@ -18,6 +18,7 @@ Designed for Spring Boot, Tomcat, desktop applications, Java SDKs, and libraries
 
 | Layer | Description |
 | :--- | :--- |
+| **Custom JAR Format** | Encrypts the entire JAR file using a custom format. Bytecode is decrypted on-demand during class loading and method execution, ensuring plaintext bytecode never touches disk. Static analysis tools see only encrypted data with no recognizable structure. |
 | **Hardened JRE** | Runs applications inside a customized runtime environment with reduced attack surface. Unnecessary APIs (Attach API, Agent) are removed to eliminate common entry points. |
 | **Runtime Protection** | Defends against Attach API abuse, JVMTI agents, debugging, instrumentation, and runtime analysis. |
 | **Native Security** | Keeps bytecode persistently encrypted in the metaspace. Decryption occurs on-demand within the native layer during method execution, ensuring that plaintext bytecode is never fully exposed in the JVM heap. |
