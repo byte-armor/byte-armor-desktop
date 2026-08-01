@@ -37,7 +37,7 @@ Designed for Spring Boot, Tomcat, desktop applications, Java SDKs, and libraries
 
 ---
 
-## Supported Platforms
+## Supported Java Applications
 
 - Spring Boot
 - Apache Tomcat
@@ -45,7 +45,11 @@ Designed for Spring Boot, Tomcat, desktop applications, Java SDKs, and libraries
 - Java SDKs and libraries
 
 ---
+## Supported Platforms
 
+- Windows x64
+- Linux x64
+---
 
 > 📘 Full documentation: [https://bytearmor.io/en/docs](https://bytearmor.io/en/docs)  
 > 📦 Try the sample: [https://bytearmor.io/en/downloads](https://bytearmor.io/en/downloads)
